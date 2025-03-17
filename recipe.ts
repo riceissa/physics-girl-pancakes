@@ -25,11 +25,11 @@ document.addEventListener('DOMContentLoaded', () => {
   function html_to_amount(e: HTMLElement): Amount | null {
     if (!e) {
       console.log("Could not convert to amount", e);
-      return;
+      return null;
     }
     if (e.children.length != 2) {
       console.log("Could not convert to amount", e);
-      return;
+      return null;
     }
 
     const value_text = e.children[0].textContent || '';
@@ -45,11 +45,11 @@ document.addEventListener('DOMContentLoaded', () => {
       value = parseFloat(value_text);
     } else {
       console.log("Could not convert to amount", e);
-      return;
+      return null;
     }
 
     const units_raw = e.children[1];
-    const units = units_raw?.textContent.trim().toLowerCase() || '';
+    const units = units_raw?.textContent?.trim()?.toLowerCase() || '';
     const amount = {value: value, units: units} as Amount;
     return amount;
   }
