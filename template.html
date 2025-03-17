@@ -17,21 +17,25 @@ $if(description-meta)$
   <meta name="description" content="$description-meta$" />
 $endif$
   <title>$if(title-prefix)$$title-prefix$ – $endif$$pagetitle$</title>
-  <style>
-    $styles.html()$
-  </style>
-$for(css)$
-  <link rel="stylesheet" href="$css$" />
-$endfor$
+<link rel="stylesheet" href="./style.css" />
 $for(header-includes)$
   $header-includes$
 $endfor$
 $if(math)$
   $math$
 $endif$
+
+<script src="https://cdn.jsdelivr.net/gh/riceissa/simple-website-darkmode/docs/darkmode.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/riceissa/simple-website-darkmode/docs/darkmode-overrides.css">
+
 <script src="./recipe.js"></script>
 </head>
 <body>
+
+<div id="darkmode-menu"></div>
+<script>darkmode.initialize();</script>
+
+<main>
 $for(include-before)$
 $include-before$
 $endfor$
@@ -67,5 +71,6 @@ $body$
 $for(include-after)$
 $include-after$
 $endfor$
+</main>
 </body>
 </html>

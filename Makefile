@@ -1,7 +1,7 @@
 .PHONY: all
 all: docs/index.html docs/recipe.js
 
-docs/index.html: index.md template.html
+docs/index.html: index.md template.html docs/style.css
 	pandoc -f markdown -t html --template=template.html -o "$@" "$<"
 
 docs/recipe.js: recipe.ts
