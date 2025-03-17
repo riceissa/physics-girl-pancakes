@@ -11,6 +11,13 @@ document.addEventListener('DOMContentLoaded', function () {
     var pancake_count_input = document.getElementById('pancake-count');
     pancake_count_input.addEventListener('change', update_values);
     pancake_count_input.addEventListener('input', update_values);
+    // This is needed because if the user enters their own number of pancakes
+    // into the input field, and then soft-refreshes the page, then the input
+    // field will still contain their chosen value, but the values across the
+    // page will reset to the 6-pancake default, i.e., there will be a mismatch
+    // which will be very confusing. (Hard-refreshing resets the input field as
+    // well, but most users won't do that.)
+    update_values();
     function html_to_amount(e) {
         var _a, _b, _c;
         if (!e) {
