@@ -54,13 +54,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Units that should not be pluralized
     const noPluralize = ['tbsp', 'tsp', 'oz', 'lb', 'g', 'kg', 'ml', 'l'];
 
-    // Normalize unit name - remove potential trailing 's'
-    let originalUnit = amount.units.replace(/s$/, '');
-    let unit = originalUnit;
+    // Normalize units name - remove potential trailing 's'
+    let originalUnits = amount.units.replace(/s$/, '');
+    let units = originalUnits;
 
     // Only process known units
-    if (!['cup', 'tbsp', 'tsp'].includes(unit)) {
-      return { value: amount.value, units: originalUnit };
+    if (!['cup', 'tbsp', 'tsp'].includes(units)) {
+      return { value: amount.value, units: originalUnits };
     }
 
     // TODO: check to make sure we don't get infinite recursion... Idk i think
@@ -68,25 +68,25 @@ document.addEventListener('DOMContentLoaded', () => {
     // one-shot way that gets the correct units on the first try, and doesn't
     // use recursion.
     // Convert to smaller units if value is too small
-    if (unit === 'cup' && amount.value < 0.125) {
+    if (units === 'cup' && amount.value < 0.125) {
       return amount_with_best_units({value: amount.value * 16, units: 'tbsp'}); // at most 2.0
-    } else if (unit === 'tbsp' && amount.value < 0.5) {
+    } else if (units === 'tbsp' && amount.value < 0.5) {
       return amount_with_best_units({value: amount.value * 3, units: 'tsp'}); // at most 1.5
     }
 
     // Convert to larger units if value is too large
-    if (unit === 'tsp' && amount.value >= 3) {
+    if (units === 'tsp' && amount.value >= 3) {
       return amount_with_best_units({value: amount.value * 1.0/3.0, units: 'tbsp'}); // at least 1.0
-    } else if (unit === 'tbsp' && amount.value >= 8) {
+    } else if (units === 'tbsp' && amount.value >= 8) {
       return amount_with_best_units({value: amount.value * 1.0/16.0, units: 'cup'}); // at least 0.5
     }
 
     // Handle pluralization only for units that should be pluralized
-    if (amount.value != 1 && !noPluralize.includes(unit)) {
-      unit += 's';
+    if (amount.value != 1 && !noPluralize.includes(units)) {
+      units += 's';
     }
 
-    return { value: amount.value, units: unit };
+    return { value: amount.value, units: units };
   }
 
   function format_number(value: number): string {
