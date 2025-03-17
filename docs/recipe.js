@@ -22,6 +22,8 @@ document.addEventListener('DOMContentLoaded', function () {
             tbsp: 1 / 3 // 1 tsp = 1/3 tbsp
         }
     };
+    // Units that should not be pluralized
+    var noPluralize = ['tbsp', 'tsp', 'oz', 'lb', 'g', 'kg', 'ml', 'l'];
     // Get all value spans
     var valueSpans = document.querySelectorAll('.value');
     // Store original values and elements
@@ -54,8 +56,9 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     // Function to find the best unit for a measurement
     var findBestUnit = function (value, currentUnit) {
-        // Normalize unit names
-        var unit = currentUnit.replace(/s$/, ''); // Remove plural 's'
+        // Normalize unit name - remove potential trailing 's'
+        var unit = currentUnit.replace(/s$/, '');
+        var originalUnit = unit;
         // Only process known units
         if (!['cup', 'tbsp', 'tsp'].includes(unit)) {
             return { value: value, unit: currentUnit };
@@ -74,8 +77,8 @@ document.addEventListener('DOMContentLoaded', function () {
         else if (unit === 'tbsp' && value >= 8) {
             return findBestUnit(value * unitConversions.tbsp.cup, 'cup');
         }
-        // Handle pluralization
-        if (value != 1) {
+        // Handle pluralization only for units that should be pluralized
+        if (value != 1 && !noPluralize.includes(unit)) {
             unit += 's';
         }
         return { value: value, unit: unit };
