@@ -72,8 +72,12 @@ document.addEventListener('DOMContentLoaded', () => {
       return {value: amount.value * 48, units: 'tsp'};
     } else if (units === 'cup' && amount.value < 0.2 + 0.01) {
       return {value: amount.value * 16, units: 'tbsp'};
+    } else if (units === 'tbsp' && amount.value < 0.5/8) {
+      return {value: amount.value * 3 * 98, units: 'drops'};
     } else if (units === 'tbsp' && amount.value < 0.5) {
       return {value: amount.value * 3, units: 'tsp'};
+    } else if (units === 'tsp' && amount.value < 1/8 - 0.01) {
+      return {value: amount.value * 98, units: 'drop'};
     }
 
     if (units === 'tsp' && amount.value >= 48) {
