@@ -25,6 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
+  // Units that should not be pluralized
+  const noPluralize = ['tbsp', 'tsp', 'oz', 'lb', 'g', 'kg', 'ml', 'l'];
+
   // Get all value spans
   const valueSpans = document.querySelectorAll('.value');
 
@@ -60,8 +63,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Function to find the best unit for a measurement
   const findBestUnit = (value: number, currentUnit: string): { value: number, unit: string } => {
-    // Normalize unit names
-    let unit = currentUnit.replace(/s$/, ''); // Remove plural 's'
+    // Normalize unit name - remove potential trailing 's'
+    let unit = currentUnit.replace(/s$/, '');
+    let originalUnit = unit;
 
     // Only process known units
     if (!['cup', 'tbsp', 'tsp'].includes(unit)) {
@@ -82,8 +86,8 @@ document.addEventListener('DOMContentLoaded', () => {
       return findBestUnit(value * unitConversions.tbsp.cup, 'cup');
     }
 
-    // Handle pluralization
-    if (value != 1) {
+    // Handle pluralization only for units that should be pluralized
+    if (value != 1 && !noPluralize.includes(unit)) {
       unit += 's';
     }
 
