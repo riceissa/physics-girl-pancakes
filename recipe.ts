@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Format a number as fraction or decimal
-  function formatNumber(value: number): string {
+  function format_number(value: number): string {
     // Handle common fractions for better readability
     if (Math.abs(value - 0.25) < 0.01) return '1/4';
     if (Math.abs(value - 0.5) < 0.01) return '1/2';
@@ -138,9 +138,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // console.log(original_amounts);
-
-
   const pancakeCountInput = document.getElementById('pancake-count') as HTMLInputElement;
 
   function updateValues() {
@@ -153,28 +150,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     original_amounts.forEach((original_amount, index) => {
       const amount_span = amount_elements[index];
-      const valueSpan = amount_span.children[0];
-      const unitSpan = amount_span.children[1];
+      const value_span = amount_span.children[0];
+      const units_span = amount_span.children[1];
 
-      // Only scale numerical values
       if (typeof original_amount.value === 'number') {
-        let scaledValue = original_amount.value * scaleFactor;
-
-        // Check if we need to convert units
-        if (unitSpan && original_amount.units) {
-          const bestMeasurement = amount_as_best_unit({value: scaledValue, units: original_amount.units});
-          scaledValue = bestMeasurement.value;
-          unitSpan.textContent = bestMeasurement.units;
-        }
-        valueSpan.textContent = formatNumber(scaledValue);
+        const bestMeasurement: Amount = amount_as_best_unit({value: original_amount.value * scaleFactor, units: original_amount.units});
+        value_span.textContent = format_number(bestMeasurement.value);
+        units_span.textContent = bestMeasurement.units;
       }
     });
   }
 
-  // Add event listener to the input
   pancakeCountInput.addEventListener('change', updateValues);
   pancakeCountInput.addEventListener('input', updateValues);
 
-  // Initial update
-  updateValues();
+  // updateValues();
 });
