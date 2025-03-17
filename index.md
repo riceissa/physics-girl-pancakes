@@ -45,7 +45,6 @@ liquid so a poor blender will not be able to blend the ingredients):
 
 - <span><span class="value">1/2</span> <span class="units">cup</span></span> pistachios
 - {fresh vanilla bean -- <span><span class="value">1/2</span> <span class="units">tsp</span></span>} or {vanilla extract -- <span id="vanilla-extract-amount"><span class="value">1/4</span> <span class="units">tsp</span></span>}
-  </span>
 - <span><span class="value">1</span> <span class="units">pink lady apple</span></span> (with skin on)
 - <span><span class="value">1/2</span> <span class="units">cup</span></span> water
 
