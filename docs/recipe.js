@@ -1,4 +1,16 @@
 document.addEventListener('DOMContentLoaded', function () {
+    var amount_elements = [];
+    var original_amounts = [];
+    document.querySelectorAll('.amount').forEach(function (amount_span) {
+        var amount = html_to_amount(amount_span);
+        if (amount) {
+            amount_elements.push(amount_span);
+            original_amounts.push(amount);
+        }
+    });
+    var pancake_count_input = document.getElementById('pancake-count');
+    pancake_count_input.addEventListener('change', update_values);
+    pancake_count_input.addEventListener('input', update_values);
     function html_to_amount(e) {
         var _a, _b, _c;
         if (!e) {
@@ -66,6 +78,8 @@ document.addEventListener('DOMContentLoaded', function () {
         return { value: amount.value, units: unit };
     }
     function format_number(value) {
+        if (Number.isInteger(value))
+            return value.toString();
         // Handle common fractions for better readability
         if (value.toFixed(1) == "0.5")
             return '1/2';
@@ -79,25 +93,14 @@ document.addEventListener('DOMContentLoaded', function () {
             return '2/3';
         if (Math.abs(value - 0.125) < 0.01)
             return '1/8';
-        // Format other values
+        if (value < 0.01)
+            return value.toFixed(3);
         if (value < 0.1)
             return value.toFixed(2);
         if (value < 1)
             return value.toFixed(1);
-        return Number.isInteger(value)
-            ? value.toString()
-            : value.toFixed(1).replace(/\.0$/, '');
+        return value.toFixed(1).replace(/\.0$/, '');
     }
-    var amount_elements = [];
-    var original_amounts = [];
-    document.querySelectorAll('.amount').forEach(function (amount_span) {
-        var amount = html_to_amount(amount_span);
-        if (amount) {
-            amount_elements.push(amount_span);
-            original_amounts.push(amount);
-        }
-    });
-    var pancake_count_input = document.getElementById('pancake-count');
     function update_values() {
         var pancake_count = parseFloat(pancake_count_input.value);
         if (isNaN(pancake_count) || pancake_count <= 0) {
@@ -116,6 +119,4 @@ document.addEventListener('DOMContentLoaded', function () {
             units_span.textContent = best.units;
         });
     }
-    pancake_count_input.addEventListener('change', update_values);
-    pancake_count_input.addEventListener('input', update_values);
 });
