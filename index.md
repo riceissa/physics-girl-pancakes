@@ -40,12 +40,15 @@ camera footage and my own experiments.
 
 # Directions
 
-Blend the
-<span><span class="value">1/2</span> <span class="units">cup</span></span> pistachios,
-{fresh vanilla bean -- <span><span class="value">1/2</span> <span class="units">tsp</span></span>} or {vanilla extract -- <span id="vanilla-extract-amount"><span class="value">1/4</span> <span class="units">tsp</span></span>},
-<span><span class="value">1</span> <span class="units">pink lady apple</span></span> (with skin on),
-and <span><span class="value">1/2</span> <span class="units">cup</span></span> water.
-Set aside some of this for later to put on the pancakes as sauce, while most of it will be used as part of the batter.
+Blend the following ingredients:
+
+- <span><span class="value">1/2</span> <span class="units">cup</span></span> pistachios
+- {fresh vanilla bean -- <span><span class="value">1/2</span> <span class="units">tsp</span></span>} or {vanilla extract -- <span id="vanilla-extract-amount"><span class="value">1/4</span> <span class="units">tsp</span></span>}
+- <span><span class="value">1</span> <span class="units">pink lady apple</span></span> (with skin on)
+- <span><span class="value">1/2</span> <span class="units">cup</span></span> water
+
+Set aside some of what was blended for later to put on the pancakes as sauce,
+while most of it will be used as part of the batter.
 
 Mix the <span><span class="value">2</span> <span class="units">tbsp</span></span> ground chia seeds and <span><span class="value">1/4</span> <span class="units">cup</span></span> pecans into the batter.
 
