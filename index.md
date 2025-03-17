@@ -1,7 +1,7 @@
 ---
 title: Physics Girl breakfast pancake recipe
 author: Issa Rice
-date: 2025-01-29
+date: 2025-03-17
 created: 2025-01-29
 ---
 
@@ -35,7 +35,7 @@ camera footage and my own experiments.
 - water -- just enough to get the consistency of the batter right, about <span class="amount"><span class="value">1/2</span> <span class="units">cup</span></span>. You don't want the batter to be too runny.
 - ground chia seeds -- <span class="amount"><span class="value">2</span> <span class="units">tbsp</span></span>
 - pecans (probably; it was in a different glass jar than the pistachios but were never called out in the live stream; later in the stream they mention that she eats pecans, whereas no other nuts were mentioned as far as I can tell) -- <span class="amount"><span class="value">1/4</span> <span class="units">cup</span></span>
-- carrot -- <span class="amount"><span class="value">1</span> <span class="units">small</span></span>
+- carrot -- <span class="amount"><span class="value">1</span> <span class="units">small carrot</span></span>
 - coconut oil -- <span class="amount"><span class="value">1</span> <span class="units">tbsp</span></span>
 
 # Directions
@@ -53,7 +53,7 @@ while most of it will be used as part of the batter.
 
 Mix the <span class="amount"><span class="value">2</span> <span class="units">tbsp</span></span> ground chia seeds and <span class="amount"><span class="value">1/4</span> <span class="units">cup</span></span> pecans into the batter.
 
-Peel and grate the <span class="amount"><span class="value">1</span> <span class="units">small</span></span> carrot and mix the carrot and the rest of the apple chunks (<span class="amount"><span class="value">1/2</span> <span class="units">apple</span></span>) into the batter.
+Peel and grate the <span class="amount"><span class="value">1</span> <span class="units">small carrot</span></span> and mix the carrot and the rest of the apple chunks (<span class="amount"><span class="value">1/2</span> <span class="units">apple</span></span>) into the batter.
 
 The consistency of the batter should be like cookie dough at this point.
 

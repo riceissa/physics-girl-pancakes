@@ -48,9 +48,10 @@ $endif$
 $for(author)$
 <p class="author">$author$</p>
 $endfor$
-$if(date)$
-<p class="date">$date$</p>
-$endif$
+<p>
+  First published on <span class="created">$created$</span>;
+  last major version published on <span class="date">$date$</span>
+</p>
 $if(abstract)$
 <div class="abstract">
 <div class="abstract-title">$abstract-title$</div>
