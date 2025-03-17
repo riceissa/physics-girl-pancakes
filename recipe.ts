@@ -48,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return { value: amount.value, units: originalUnit };
     }
 
+    // TODO: check to make sure we don't get infinite recursion...
     // Convert to smaller units if value is too small
     if (unit === 'cup' && amount.value < 0.125) {
       return amount_with_best_units({value: amount.value * 16, units: 'tbsp'});
@@ -70,7 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
     return { value: amount.value, units: unit };
   }
 
-  // Format a number as fraction or decimal
   function format_number(value: number): string {
     // Handle common fractions for better readability
     if (Math.abs(value - 0.25) < 0.01) return '1/4';
@@ -89,12 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
       : value.toFixed(1).replace(/\.0$/, '');
   }
 
-  // const a = {value: 0.5, units: "CUPS"} as Amount;
-  // console.log(htmlToAmount(amountToHtml(a)));
-
-
   const amount_elements: HTMLElement[] = [];
-
   const original_amounts: Amount[] = [];
   document.querySelectorAll('.amount').forEach(amount_span => {
     const amount: Amount | null = html_to_amount(amount_span as HTMLElement);
@@ -104,29 +99,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  const pancakeCountInput = document.getElementById('pancake-count') as HTMLInputElement;
+  const pancake_count_input = document.getElementById('pancake-count') as HTMLInputElement;
 
-  function updateValues() {
-    const pancakeCount = parseFloat(pancakeCountInput.value);
-    if (isNaN(pancakeCount) || pancakeCount <= 0) {
+  function update_values() {
+    const pancake_count = parseFloat(pancake_count_input.value);
+    if (isNaN(pancake_count) || pancake_count <= 0) {
       return; // Don't update if invalid input
     }
 
-    const scaleFactor = pancakeCount / 6.0; // Base recipe is for 6 pancakes
 
     original_amounts.forEach((original_amount, index) => {
       const amount_span = amount_elements[index];
       const value_span = amount_span.children[0];
       const units_span = amount_span.children[1];
 
-      if (typeof original_amount.value === 'number') {
-        const bestMeasurement: Amount = amount_with_best_units({value: original_amount.value * scaleFactor, units: original_amount.units});
-        value_span.textContent = format_number(bestMeasurement.value);
-        units_span.textContent = bestMeasurement.units;
-      }
+      const scale = pancake_count / 6.0; // Base recipe is for 6 pancakes
+      const best: Amount = amount_with_best_units({
+        value: original_amount.value * scale,
+        units: original_amount.units
+      });
+      value_span.textContent = format_number(best.value);
+      units_span.textContent = best.units;
     });
   }
 
-  pancakeCountInput.addEventListener('change', updateValues);
-  pancakeCountInput.addEventListener('input', updateValues);
+  pancake_count_input.addEventListener('change', update_values);
+  pancake_count_input.addEventListener('input', update_values);
 });
