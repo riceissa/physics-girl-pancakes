@@ -26,7 +26,7 @@ is an unofficial recipe, to make it easy for me to try making them.
   <input type="number" id="pancake-count" name="pancake-count" min="1" value="6">
 </div>
 
-Amounts were never mentioned in the stream, so I am purely guessing based on
+Amounts were never mentioned in the stream, so I am guessing based on
 camera footage and my own experiments.
 
 - whole pistachios -- <span class="amount"><span class="value">1/2</span> <span class="units">cup</span></span>
@@ -44,7 +44,7 @@ Blend the following ingredients (use a good blender; there's not a lot of
 liquid so a poor blender will not be able to blend the ingredients):
 
 - <span class="amount"><span class="value">1/2</span> <span class="units">cup</span></span> pistachios
-- {fresh vanilla bean -- <span class="amount"><span class="value">1/2</span> <span class="units">tsp</span></span>} or {vanilla extract -- <span class="amount"><span class="value">1/4</span> <span class="units">tsp</span></span>}
+- {fresh vanilla bean -- <span class="amount"><span class="value">1/2</span> <span class="units">tsp</span></span>} or {vanilla extract -- <span class="amount"><span class="value">1/2</span> <span class="units">tsp</span></span>}
 - <span class="amount"><span class="value">1</span> <span class="units">pink lady apple</span></span> (with skin on)
 - <span class="amount"><span class="value">1/2</span> <span class="units">cup</span></span> water
 
