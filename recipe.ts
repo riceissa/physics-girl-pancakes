@@ -22,11 +22,13 @@ document.addEventListener('DOMContentLoaded', () => {
     return result;
   }
 
-  function html_to_amount(e: HTMLElement): Amount {
+  function html_to_amount(e: HTMLElement): Amount | null {
     if (!e) {
+      console.log("Could not convert to amount", e);
       return;
     }
     if (e.children.length != 2) {
+      console.log("Could not convert to amount", e);
       return;
     }
 
@@ -42,6 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
     } else if (!isNaN(parseFloat(value_text))) {
       value = parseFloat(value_text);
     } else {
+      console.log("Could not convert to amount", e);
       return;
     }
 
@@ -128,9 +131,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const original_amounts: Amount[] = [];
   document.querySelectorAll('.amount').forEach(amount_span => {
-    amount_elements.push(amount_span as HTMLElement);
-    original_amounts.push(html_to_amount(amount_span as HTMLElement));
+    const amount: Amount | null = html_to_amount(amount_span as HTMLElement);
+    if (amount) {
+      amount_elements.push(amount_span as HTMLElement);
+      original_amounts.push(amount);
+    }
   });
+
+  // console.log(original_amounts);
 
 
   const pancakeCountInput = document.getElementById('pancake-count') as HTMLInputElement;
