@@ -22,7 +22,7 @@ is an unofficial recipe, to make it easy for me to try making them.
 
 <div>
   <label for="pancake-count">Enter the number of pancakes you want to make
-  (original recipe makes 6 pancakes):</label>
+  (original recipe makes 6 pancakes, which serves two people):</label>
   <input type="number" id="pancake-count" name="pancake-count" min="1" value="6">
 </div>
 
