@@ -5,7 +5,7 @@ docs/index.html: index.md template.html
 	pandoc -f markdown -t html --template=template.html -o "$@" "$<"
 
 docs/recipe.js: recipe.ts
-	tsc --outfile "$@" "$<"
+	tsc --lib dom,es2015 --outfile "$@" "$<"
 
 .PHONY: clean
 clean:
