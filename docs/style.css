@@ -1,5 +1,6 @@
 :root {
     color-scheme: light dark;
+    font-size: 18px;
 }
 
 body {
@@ -10,7 +11,7 @@ body {
     font-kerning: normal;
 }
 main {
-    max-width: 36em;
+    max-width: 38em;
     margin: 0 auto;
 }
 @media (max-width: 600px) {
@@ -21,6 +22,12 @@ main {
     h1 {
         font-size: 1.8em;
     }
+}
+h1 {
+    font-size: 140%;
+}
+h2 {
+    font-size: 120%;
 }
 p {
     margin: 1em 0;
