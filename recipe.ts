@@ -4,6 +4,21 @@ document.addEventListener('DOMContentLoaded', () => {
     units: string;
   };
 
+  const amount_elements: HTMLElement[] = [];
+  const original_amounts: Amount[] = [];
+  document.querySelectorAll('.amount').forEach(amount_span => {
+    const amount: Amount | null = html_to_amount(amount_span as HTMLElement);
+    if (amount) {
+      amount_elements.push(amount_span as HTMLElement);
+      original_amounts.push(amount);
+    }
+  });
+
+  const pancake_count_input = document.getElementById('pancake-count') as HTMLInputElement;
+
+  pancake_count_input.addEventListener('change', update_values);
+  pancake_count_input.addEventListener('input', update_values);
+
   function html_to_amount(e: HTMLElement): Amount | null {
     if (!e) {
       console.log("Could not convert to amount", e);
@@ -91,24 +106,11 @@ document.addEventListener('DOMContentLoaded', () => {
     return value.toFixed(1).replace(/\.0$/, '');
   }
 
-  const amount_elements: HTMLElement[] = [];
-  const original_amounts: Amount[] = [];
-  document.querySelectorAll('.amount').forEach(amount_span => {
-    const amount: Amount | null = html_to_amount(amount_span as HTMLElement);
-    if (amount) {
-      amount_elements.push(amount_span as HTMLElement);
-      original_amounts.push(amount);
-    }
-  });
-
-  const pancake_count_input = document.getElementById('pancake-count') as HTMLInputElement;
-
   function update_values(): void {
     const pancake_count = parseFloat(pancake_count_input.value);
     if (isNaN(pancake_count) || pancake_count <= 0) {
       return; // Don't update if invalid input
     }
-
 
     original_amounts.forEach((original_amount: Amount, index) => {
       const amount_span = amount_elements[index];
@@ -124,7 +126,4 @@ document.addEventListener('DOMContentLoaded', () => {
       units_span.textContent = best.units;
     });
   }
-
-  pancake_count_input.addEventListener('change', update_values);
-  pancake_count_input.addEventListener('input', update_values);
 });
