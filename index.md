@@ -30,11 +30,7 @@ Amounts were never mentioned in the stream, so I am purely guessing based on
 camera footage and my own experiments.
 
 - whole pistachios -- <span><span class="value">1/2</span> <span class="units">cup</span></span>
-- vanilla: choose one of
-  <span class="choose-one radio-choice">
-    <span class="choice">{fresh vanilla bean -- <span><span class="value">1/2</span> <span class="units">tsp</span></span>}</span>
-    or <span class="choice">{vanilla extract -- <span id="vanilla-extract-amount"><span class="value">1/4</span> <span class="units">tsp</span></span>}</span>
-  </span>
+- vanilla: choose one of <span>{fresh vanilla bean -- <span><span class="value">1/2</span> <span class="units">tsp</span></span>}</span> or <span>{vanilla extract -- <span id="vanilla-extract-amount"><span class="value">1/4</span> <span class="units">tsp</span></span>}</span>
 - pink lady apple -- <span><span class="value">1.5</span> <span class="units">apples</span></span>
 - water -- just enough to get the consistency of the batter right, about <span><span class="value">1/2</span> <span class="units">cup</span></span>. You don't want the batter to be too runny.
 - ground chia seeds -- <span><span class="value">2</span> <span class="units">tbsp</span></span>
