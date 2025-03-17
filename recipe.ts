@@ -75,6 +75,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function format_number(value: number): string {
+    if (Number.isInteger(value)) return value.toString();
+
     // Handle common fractions for better readability
     if (value.toFixed(1) == "0.5") return '1/2';
     if (Math.abs(value - 0.25) < 0.01) return '1/4';
@@ -83,13 +85,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (Math.abs(value - 0.67) < 0.01) return '2/3';
     if (Math.abs(value - 0.125) < 0.01) return '1/8';
 
-    // Format other values
+    if (value < 0.01) return value.toFixed(3);
     if (value < 0.1) return value.toFixed(2);
     if (value < 1) return value.toFixed(1);
-
-    return Number.isInteger(value)
-      ? value.toString()
-      : value.toFixed(1).replace(/\.0$/, '');
+    return value.toFixed(1).replace(/\.0$/, '');
   }
 
   const amount_elements: HTMLElement[] = [];
