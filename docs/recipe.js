@@ -67,10 +67,10 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     function format_number(value) {
         // Handle common fractions for better readability
+        if (value.toFixed(1) == "0.5")
+            return '1/2';
         if (Math.abs(value - 0.25) < 0.01)
             return '1/4';
-        if (Math.abs(value - 0.5) < 0.01)
-            return '1/2';
         if (Math.abs(value - 0.75) < 0.01)
             return '3/4';
         if (Math.abs(value - 0.33) < 0.01)
