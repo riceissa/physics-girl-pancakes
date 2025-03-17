@@ -41,20 +41,23 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!['cup', 'tbsp', 'tsp'].includes(unit)) {
             return { value: amount.value, units: originalUnit };
         }
-        // TODO: check to make sure we don't get infinite recursion...
+        // TODO: check to make sure we don't get infinite recursion... Idk i think
+        // this is hard to reason about so i think it's better to rewrite it in a
+        // one-shot way that gets the correct units on the first try, and doesn't
+        // use recursion.
         // Convert to smaller units if value is too small
         if (unit === 'cup' && amount.value < 0.125) {
-            return amount_with_best_units({ value: amount.value * 16, units: 'tbsp' });
+            return amount_with_best_units({ value: amount.value * 16, units: 'tbsp' }); // at most 2.0
         }
         else if (unit === 'tbsp' && amount.value < 0.5) {
-            return amount_with_best_units({ value: amount.value * 3, units: 'tsp' });
+            return amount_with_best_units({ value: amount.value * 3, units: 'tsp' }); // at most 1.5
         }
         // Convert to larger units if value is too large
         if (unit === 'tsp' && amount.value >= 3) {
-            return amount_with_best_units({ value: amount.value * 1.0 / 3.0, units: 'tbsp' });
+            return amount_with_best_units({ value: amount.value * 1.0 / 3.0, units: 'tbsp' }); // at least 1.0
         }
         else if (unit === 'tbsp' && amount.value >= 8) {
-            return amount_with_best_units({ value: amount.value * 1.0 / 16.0, units: 'cup' });
+            return amount_with_best_units({ value: amount.value * 1.0 / 16.0, units: 'cup' }); // at least 0.5
         }
         // Handle pluralization only for units that should be pluralized
         if (amount.value != 1 && !noPluralize.includes(unit)) {
