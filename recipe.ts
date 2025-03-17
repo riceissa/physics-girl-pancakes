@@ -76,8 +76,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function format_number(value: number): string {
     // Handle common fractions for better readability
+    if (value.toFixed(1) == "0.5") return '1/2';
     if (Math.abs(value - 0.25) < 0.01) return '1/4';
-    if (Math.abs(value - 0.5) < 0.01) return '1/2';
     if (Math.abs(value - 0.75) < 0.01) return '3/4';
     if (Math.abs(value - 0.33) < 0.01) return '1/3';
     if (Math.abs(value - 0.67) < 0.01) return '2/3';
@@ -104,14 +104,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const pancake_count_input = document.getElementById('pancake-count') as HTMLInputElement;
 
-  function update_values() {
+  function update_values(): void {
     const pancake_count = parseFloat(pancake_count_input.value);
     if (isNaN(pancake_count) || pancake_count <= 0) {
       return; // Don't update if invalid input
     }
 
 
-    original_amounts.forEach((original_amount, index) => {
+    original_amounts.forEach((original_amount: Amount, index) => {
       const amount_span = amount_elements[index];
       const value_span = amount_span.children[0];
       const units_span = amount_span.children[1];
