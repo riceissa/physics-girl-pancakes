@@ -4,24 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
     units: string;
   };
 
-  function amount_to_html(amount: Amount): HTMLElement {
-    const result = document.createElement("span");
-    result.className = "amount";
-
-    const value = document.createElement("span");
-    value.className = "value";
-    value.textContent = String(amount.value);
-
-    const units = document.createElement("span");
-    units.className = "units";
-    units.textContent = amount.units;
-
-    result.appendChild(value);
-    result.appendChild(document.createTextNode(" "));
-    result.appendChild(units);
-    return result;
-  }
-
   function html_to_amount(e: HTMLElement): Amount | null {
     if (!e) {
       console.log("Could not convert to amount", e);
@@ -33,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const value_text = e.children[0].textContent || '';
-    var value: number = 0;
+    let value: number;
     if (value_text.includes('/')) {
       const parts = value_text.split('/');
       const numerator = parseFloat(parts[0].trim());
@@ -48,16 +30,18 @@ document.addEventListener('DOMContentLoaded', () => {
       return null;
     }
 
-    const units_raw = e.children[1];
-    const units = units_raw?.textContent?.trim()?.toLowerCase() || '';
+    const units = e.children[1]?.textContent?.trim()?.toLowerCase() || '';
     const amount = {value: value, units: units} as Amount;
     return amount;
   }
 
-  function amount_as_best_unit(amount: Amount): Amount {
+  function amount_with_best_units(amount: Amount): Amount {
+    // Units that should not be pluralized
+    const noPluralize = ['tbsp', 'tsp', 'oz', 'lb', 'g', 'kg', 'ml', 'l'];
+
     // Normalize unit name - remove potential trailing 's'
-    let unit = amount.units.replace(/s$/, '');
-    let originalUnit = unit;
+    let originalUnit = amount.units.replace(/s$/, '');
+    let unit = originalUnit;
 
     // Only process known units
     if (!['cup', 'tbsp', 'tsp'].includes(unit)) {
@@ -65,17 +49,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Convert to smaller units if value is too small
-    if (unit === 'cup' && amount.value < 0.25) {
-      return amount_as_best_unit({value: amount.value * unitConversions.cup.tbsp, units: 'tbsp'});
+    if (unit === 'cup' && amount.value < 0.125) {
+      return amount_with_best_units({value: amount.value * 16, units: 'tbsp'});
     } else if (unit === 'tbsp' && amount.value < 0.5) {
-      return amount_as_best_unit({value: amount.value * unitConversions.tbsp.tsp, units: 'tsp'});
+      return amount_with_best_units({value: amount.value * 3, units: 'tsp'});
     }
 
     // Convert to larger units if value is too large
     if (unit === 'tsp' && amount.value >= 3) {
-      return amount_as_best_unit({value: amount.value * unitConversions.tsp.tbsp, units: 'tbsp'});
+      return amount_with_best_units({value: amount.value * 1.0/3.0, units: 'tbsp'});
     } else if (unit === 'tbsp' && amount.value >= 8) {
-      return amount_as_best_unit({value: amount.value * unitConversions.tbsp.cup, units: 'cup'});
+      return amount_with_best_units({value: amount.value * 1.0/16.0, units: 'cup'});
     }
 
     // Handle pluralization only for units that should be pluralized
@@ -108,24 +92,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // const a = {value: 0.5, units: "CUPS"} as Amount;
   // console.log(htmlToAmount(amountToHtml(a)));
 
-  // Unit conversion factors
-  const unitConversions: Record<string, Record<string, number>> = {
-    cup: {
-      tbsp: 16,  // 1 cup = 16 tbsp
-      tsp: 48    // 1 cup = 48 tsp
-    },
-    tbsp: {
-      cup: 1/16, // 1 tbsp = 1/16 cup
-      tsp: 3     // 1 tbsp = 3 tsp
-    },
-    tsp: {
-      cup: 1/48, // 1 tsp = 1/48 cup
-      tbsp: 1/3  // 1 tsp = 1/3 tbsp
-    }
-  };
-
-  // Units that should not be pluralized
-  const noPluralize = ['tbsp', 'tsp', 'oz', 'lb', 'g', 'kg', 'ml', 'l'];
 
   const amount_elements: HTMLElement[] = [];
 
@@ -154,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const units_span = amount_span.children[1];
 
       if (typeof original_amount.value === 'number') {
-        const bestMeasurement: Amount = amount_as_best_unit({value: original_amount.value * scaleFactor, units: original_amount.units});
+        const bestMeasurement: Amount = amount_with_best_units({value: original_amount.value * scaleFactor, units: original_amount.units});
         value_span.textContent = format_number(bestMeasurement.value);
         units_span.textContent = bestMeasurement.units;
       }
@@ -163,6 +129,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
   pancakeCountInput.addEventListener('change', updateValues);
   pancakeCountInput.addEventListener('input', updateValues);
-
-  // updateValues();
 });
