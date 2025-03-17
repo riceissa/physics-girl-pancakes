@@ -51,9 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function amount_with_best_units(amount: Amount): Amount {
-    // Units that should not be pluralized
-    const noPluralize = ['tbsp', 'tsp', 'oz', 'lb', 'g', 'kg', 'ml', 'l'];
-
     // Normalize units name - remove potential trailing 's'
     let originalUnits = amount.units.replace(/s$/, '');
     let units = originalUnits;
@@ -63,27 +60,20 @@ document.addEventListener('DOMContentLoaded', () => {
       return { value: amount.value, units: originalUnits };
     }
 
-    // TODO: check to make sure we don't get infinite recursion... Idk i think
-    // this is hard to reason about so i think it's better to rewrite it in a
-    // one-shot way that gets the correct units on the first try, and doesn't
-    // use recursion.
-    // Convert to smaller units if value is too small
-    if (units === 'cup' && amount.value < 0.125) {
-      return amount_with_best_units({value: amount.value * 16, units: 'tbsp'}); // at most 2.0
+    if (units === 'cup' && amount.value < 2*1/48 + 0.01) {
+      return {value: amount.value * 48, units: 'tsp'};
+    } else if (units === 'cup' && amount.value < 1/16 + 0.01) {
+      return {value: amount.value * 16, units: 'tbsp'};
     } else if (units === 'tbsp' && amount.value < 0.5) {
-      return amount_with_best_units({value: amount.value * 3, units: 'tsp'}); // at most 1.5
+      return {value: amount.value * 3, units: 'tsp'};
     }
 
-    // Convert to larger units if value is too large
-    if (units === 'tsp' && amount.value >= 3) {
-      return amount_with_best_units({value: amount.value * 1.0/3.0, units: 'tbsp'}); // at least 1.0
+    if (units === 'tsp' && amount.value >= 48) {
+      return {value: amount.value / 48, units: 'cup'};
+    } else if (units === 'tsp' && amount.value >= 3) {
+      return {value: amount.value / 3, units: 'tbsp'};
     } else if (units === 'tbsp' && amount.value >= 8) {
-      return amount_with_best_units({value: amount.value * 1.0/16.0, units: 'cup'}); // at least 0.5
-    }
-
-    // Handle pluralization only for units that should be pluralized
-    if (amount.value != 1 && !noPluralize.includes(units)) {
-      units += 's';
+      return {value: amount.value / 16, units: 'cup'};
     }
 
     return { value: amount.value, units: units };
@@ -106,6 +96,17 @@ document.addEventListener('DOMContentLoaded', () => {
     return value.toFixed(1).replace(/\.0$/, '');
   }
 
+  function format_units(amount: Amount): string {
+    // Units that should not be pluralized
+    const noPluralize = ['tbsp', 'tsp', 'oz', 'lb', 'g', 'kg', 'ml', 'l'];
+
+    // Handle pluralization only for units that should be pluralized
+    if (amount.value != 1 && !noPluralize.includes(amount.units)) {
+      return amount.units + 's';
+    }
+    return amount.units;
+  }
+
   function update_values(): void {
     const pancake_count = parseFloat(pancake_count_input.value);
     if (isNaN(pancake_count) || pancake_count <= 0) {
@@ -123,7 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
         units: original_amount.units
       });
       value_span.textContent = format_number(best.value);
-      units_span.textContent = best.units;
+      units_span.textContent = format_units(best);
     });
   }
 });
