@@ -57,4 +57,4 @@ Peel and grate the <span class="amount"><span class="value">1</span> <span class
 
 The consistency of the batter should be like cookie dough at this point.
 
-Turn on the stove, put a frying pan on top, and heat the <span class="amount"><span class="value">1</span> <span class="units">tbsp</span></span> coconut oil. Then add the batter in as small pancakes (diameter ≈ 2 inches) and fry them. Flip over after a couple of. Keep flipping and cooking until they are crispy and cooked through. Serve with the sauce.
+Turn on the stove, put a frying pan on top, and heat the <span class="amount"><span class="value">1</span> <span class="units">tbsp</span></span> coconut oil. Then add the batter in as small pancakes (diameter ≈ 2 inches) and fry them. Flip over after a couple of minutes. Keep flipping and cooking until they are crispy and cooked through. Serve with the sauce.
