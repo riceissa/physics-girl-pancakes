@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (value < 0.01) return value.toFixed(3);
     if (value < 0.1) return value.toFixed(2);
-    if (value < 1) return value.toFixed(1);
+    if (value < 1) return value.toFixed(1).replace(/\.0$/, '');
     return value.toFixed(1).replace(/\.0$/, '');
   }
 
@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const noPluralize = ['tbsp', 'tsp', 'oz', 'lb', 'g', 'kg', 'ml', 'l'];
 
     // Handle pluralization only for units that should be pluralized
-    if (amount.value != 1 && !noPluralize.includes(amount.units)) {
+    if (format_number(amount.value) !== "1" && !noPluralize.includes(amount.units)) {
       return amount.units + 's';
     }
     return amount.units;
