@@ -8,6 +8,10 @@ document.addEventListener('DOMContentLoaded', function () {
             original_amounts.push(amount);
         }
     });
+    var recipe_scale_input = document.getElementById('recipe-scale-input');
+    if (recipe_scale_input) {
+        recipe_scale_input.style.display = 'block';
+    }
     var pancake_count_input = document.getElementById('pancake-count');
     pancake_count_input.addEventListener('change', update_values);
     pancake_count_input.addEventListener('input', update_values);
@@ -105,14 +109,14 @@ document.addEventListener('DOMContentLoaded', function () {
         if (value < 0.1)
             return value.toFixed(2);
         if (value < 1)
-            return value.toFixed(1);
+            return value.toFixed(1).replace(/\.0$/, '');
         return value.toFixed(1).replace(/\.0$/, '');
     }
     function format_units(amount) {
         // Units that should not be pluralized
         var noPluralize = ['tbsp', 'tsp', 'oz', 'lb', 'g', 'kg', 'ml', 'l'];
         // Handle pluralization only for units that should be pluralized
-        if (amount.value != 1 && !noPluralize.includes(amount.units)) {
+        if (format_number(amount.value) !== "1" && !noPluralize.includes(amount.units)) {
             return amount.units + 's';
         }
         return amount.units;
