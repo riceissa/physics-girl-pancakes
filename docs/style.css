@@ -60,3 +60,7 @@ hr {
     height: 1px;
     margin: 1em 0;
 }
+
+div#recipe-scale-input {
+    display: none;
+}

@@ -20,14 +20,14 @@ is an unofficial recipe, to make it easy for me to try making them.
 
 # Ingredients
 
-<div>
-  <label for="pancake-count">Enter the number of pancakes you want to make
-  (original recipe makes 6 pancakes, which serves two people):</label>
-  <input type="number" id="pancake-count" name="pancake-count" min="1" value="6">
-</div>
-
 Amounts were never mentioned in the stream, so I am guessing based on
 camera footage and my own experiments.
+The original recipe makes 6 pancakes, which serves two people.
+
+<div id="recipe-scale-input">
+  <label for="pancake-count">Enter the number of pancakes you want to make:</label>
+  <input type="number" id="pancake-count" name="pancake-count" min="1" value="6">
+</div>
 
 - whole pistachios -- <span class="amount"><span class="value">1/2</span> <span class="units">cup</span></span>
 - vanilla: choose one of fresh vanilla bean or vanilla extract (the original recipe uses fresh vanilla bean, but vanilla extract can be substituted at a 1:1 ratio; I will just refer to this as "vanilla" in the directions below) -- <span class="amount"><span class="value">1/2</span> <span class="units">tsp</span></span>

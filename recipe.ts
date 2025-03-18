@@ -14,6 +14,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  const recipe_scale_input = document.getElementById('recipe-scale-input');
+  if (recipe_scale_input) {
+    recipe_scale_input.style.display = 'block';
+  }
+
   const pancake_count_input = document.getElementById('pancake-count') as HTMLInputElement;
 
   pancake_count_input.addEventListener('change', update_values);
